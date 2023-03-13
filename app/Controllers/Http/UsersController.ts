@@ -25,7 +25,9 @@ export default class UsersController {
     try {
       await request.validate({ schema: userSchema })
     } catch (err) {
-      return response.badRequest(err)
+      return response.badRequest({
+        message: `${err?.messages?.errors[0]?.field || ''} ${err?.messages?.errors[0]?.rule || ''}`,
+      })
     }
 
     const body = request.body()
@@ -56,7 +58,7 @@ export default class UsersController {
   public async show({ params, response }: HttpContextContract) {
     try {
       const data = await User.findOrFail(params.id)
-      data.load('friends')
+      await data.load('friends')
 
       return {
         message: 'Sucesso',
