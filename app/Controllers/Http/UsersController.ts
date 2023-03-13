@@ -58,7 +58,9 @@ export default class UsersController {
   public async show({ params, response }: HttpContextContract) {
     try {
       const data = await User.findOrFail(params.id)
-      await data.load('friends')
+      await data.load('friends', async (query) => {
+        await query.preload('friendLoans')
+      })
 
       return {
         message: 'Sucesso',
