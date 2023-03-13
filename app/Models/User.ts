@@ -1,13 +1,21 @@
 import { v4 as uuid } from 'uuid'
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  beforeCreate,
+  beforeSave,
+  column,
+  HasMany,
+  hasMany,
+} from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
 import Friend from './Friend'
 
 export default class User extends BaseModel {
   public static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
-  public id: number
+  public id: string
 
   @column()
   public name: string
@@ -38,6 +46,13 @@ export default class User extends BaseModel {
     user.id = uuid()
   }
 
+  @beforeSave()
+  public static async hashPassword(user: User) {
+    if (user.$dirty.passwordHash) {
+      user.passwordHash = await Hash.make(user.passwordHash)
+    }
+  }
+
   @hasMany(() => Friend)
-  public posts: HasMany<typeof Friend>
+  public friends: HasMany<typeof Friend>
 }

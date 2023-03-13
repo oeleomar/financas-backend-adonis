@@ -9,8 +9,7 @@ export default class extends BaseSchema {
 
       table.string('name')
       table
-        .integer('user_id')
-        .unsigned()
+        .string('user_id')
         .references('users.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
