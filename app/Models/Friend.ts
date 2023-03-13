@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
-import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import FriendLoan from './FriendLoan'
 
 export default class Friend extends BaseModel {
   @column({ isPrimary: true })
@@ -22,4 +23,7 @@ export default class Friend extends BaseModel {
   public static assignUuid(friend: Friend) {
     friend.id = uuid()
   }
+
+  @hasMany(() => FriendLoan)
+  public friendLoans: HasMany<typeof FriendLoan>
 }
