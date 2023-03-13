@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { v4 as uuid } from 'uuid'
+import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Friend extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: string
 
   @column()
   public name: string
@@ -16,4 +17,9 @@ export default class Friend extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  public static assignUuid(friend: Friend) {
+    friend.id = uuid()
+  }
 }
