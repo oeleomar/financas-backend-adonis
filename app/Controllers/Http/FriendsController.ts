@@ -4,7 +4,7 @@ import Friend from 'App/Models/Friend'
 import User from 'App/Models/User'
 
 export default class FriendsController {
-  public friendSchema = schema.create({
+  private friendSchema = schema.create({
     name: schema.string(),
   })
 

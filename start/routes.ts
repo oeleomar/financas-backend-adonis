@@ -27,7 +27,12 @@ Route.group(() => {
 
   Route.resource('/users', 'UsersController').apiOnly()
 
+  //Friend
   Route.post('/users/:id/friend', 'FriendsController.store')
   Route.delete('/users/:id/friend', 'FriendsController.destroy')
   Route.put('/users/friend/:id', 'FriendsController.update')
+
+  //Friend Loan
+  Route.post('/friend/:friendId/loan', 'FriendLoansController.store')
+  Route.get('/friend/loan/:id', 'FriendLoansController.show')
 }).prefix('/api')
