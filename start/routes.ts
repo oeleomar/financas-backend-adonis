@@ -47,4 +47,10 @@ Route.group(() => {
   Route.get('/categories/:userId', 'CategoriesController.index')
   Route.put('/categories/:id', 'CategoriesController.update')
   Route.delete('/categories/:id', 'CategoriesController.destroy')
+
+  //Revenues
+  Route.post('/revenues', 'RevenuesController.store')
+  Route.get('/revenues/:userId', 'RevenuesController.index')
+  Route.put('/revenues/:id', 'RevenuesController.update')
+  Route.delete('/revenues/:id', 'RevenuesController.destroy')
 }).prefix('/api')

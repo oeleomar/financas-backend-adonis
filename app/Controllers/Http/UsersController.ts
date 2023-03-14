@@ -83,6 +83,7 @@ export default class UsersController {
         data,
       }
     } catch (err) {
+      console.log(err)
       return response.notFound({ message: 'Não foi possível buscar os dados' })
     }
   }
