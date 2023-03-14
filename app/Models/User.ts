@@ -7,9 +7,12 @@ import {
   column,
   HasMany,
   hasMany,
+  ManyToMany,
+  manyToMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import Friend from './Friend'
+import Category from './Category'
 
 export default class User extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -55,4 +58,7 @@ export default class User extends BaseModel {
 
   @hasMany(() => Friend)
   public friends: HasMany<typeof Friend>
+
+  @manyToMany(() => Category)
+  public categories: ManyToMany<typeof Category>
 }
