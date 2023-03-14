@@ -75,6 +75,8 @@ export default class UsersController {
         await query.preload('friendLoans')
       })
       await data.load('categories')
+      await data.load('revenues')
+      await data.load('expenses')
 
       return {
         message: 'Sucesso',

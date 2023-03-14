@@ -13,6 +13,8 @@ import {
 import Hash from '@ioc:Adonis/Core/Hash'
 import Friend from './Friend'
 import Category from './Category'
+import Revenue from './Revenue'
+import Expense from './Expense'
 
 export default class User extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -58,6 +60,12 @@ export default class User extends BaseModel {
 
   @hasMany(() => Friend)
   public friends: HasMany<typeof Friend>
+
+  @hasMany(() => Revenue)
+  public revenues: HasMany<typeof Revenue>
+
+  @hasMany(() => Expense)
+  public expenses: HasMany<typeof Expense>
 
   @manyToMany(() => Category, { pivotTable: 'users_categories' })
   public categories: ManyToMany<typeof Category>
