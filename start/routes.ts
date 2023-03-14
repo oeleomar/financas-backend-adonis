@@ -37,4 +37,7 @@ Route.group(() => {
   Route.get('/friend/loan/:id', 'FriendLoansController.show')
   Route.delete('/friend/loan/:id', 'FriendLoansController.destroy')
   Route.put('/friend/loan/:id', 'FriendLoansController.update')
+
+  Route.post('/images', 'ImagesController.store')
+  Route.get('/images', 'ImagesController.index')
 }).prefix('/api')

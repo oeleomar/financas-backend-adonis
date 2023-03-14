@@ -8,7 +8,7 @@ export default class Image extends BaseModel {
   public id: string
 
   @column()
-  public file_name: string
+  public fileName: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
