@@ -20,6 +20,9 @@ export default class Category extends BaseModel {
   public forExpenses: boolean
 
   @column()
+  public default: boolean
+
+  @column()
   public userId: string
 
   @column()
@@ -36,6 +39,6 @@ export default class Category extends BaseModel {
     category.id = uuid()
   }
 
-  @manyToMany(() => User)
+  @manyToMany(() => User, { pivotTable: 'users_categories' })
   public users: ManyToMany<typeof User>
 }

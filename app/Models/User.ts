@@ -59,6 +59,6 @@ export default class User extends BaseModel {
   @hasMany(() => Friend)
   public friends: HasMany<typeof Friend>
 
-  @manyToMany(() => Category)
+  @manyToMany(() => Category, { pivotTable: 'users_categories' })
   public categories: ManyToMany<typeof Category>
 }

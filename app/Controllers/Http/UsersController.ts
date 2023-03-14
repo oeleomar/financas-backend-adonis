@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import Category from 'App/Models/Category'
 import User from 'App/Models/User'
 
 export default class UsersController {
@@ -46,6 +47,18 @@ export default class UsersController {
         agree_rules: body.agreeRules,
       })
 
+      try {
+        const categories = await Category.query().where('default', true)
+        await user.related('categories').createMany(categories)
+      } catch (err) {
+        return response.internalServerError({
+          message: 'Não foi possivel criar o usuário, tente novamente mais tarde.',
+        })
+      }
+
+      await user.load('categories')
+      await user.load('friends')
+
       return {
         message: 'Usuário criado com sucesso',
         data: user,
@@ -61,6 +74,7 @@ export default class UsersController {
       await data.load('friends', async (query) => {
         await query.preload('friendLoans')
       })
+      await data.load('categories')
 
       return {
         message: 'Sucesso',

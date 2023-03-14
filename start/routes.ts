@@ -38,6 +38,13 @@ Route.group(() => {
   Route.delete('/friend/loan/:id', 'FriendLoansController.destroy')
   Route.put('/friend/loan/:id', 'FriendLoansController.update')
 
+  //Images
   Route.post('/images', 'ImagesController.store')
   Route.get('/images', 'ImagesController.index')
+
+  //Categories
+  Route.post('/categories/:userId', 'CategoriesController.store')
+  Route.get('/categories/:userId', 'CategoriesController.index')
+  Route.put('/categories/:id', 'CategoriesController.update')
+  Route.delete('/categories/:id', 'CategoriesController.destroy')
 }).prefix('/api')

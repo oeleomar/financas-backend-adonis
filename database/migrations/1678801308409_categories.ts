@@ -9,8 +9,9 @@ export default class extends BaseSchema {
 
       table.string('name').unique().notNullable()
       table.string('color').notNullable()
-      table.boolean('archivated').notNullable()
+      table.boolean('archived').notNullable()
       table.boolean('for_expenses').notNullable()
+      table.boolean('default').notNullable()
 
       table
         .string('image_id')
