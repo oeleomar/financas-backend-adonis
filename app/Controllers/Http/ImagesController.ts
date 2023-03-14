@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Application from '@ioc:Adonis/Core/Application'
 import { v4 as uuid } from 'uuid'
-import Drive from '@ioc:Adonis/Core/Drive'
 import Image from 'App/Models/Image'
 
 export default class ImagesController {
