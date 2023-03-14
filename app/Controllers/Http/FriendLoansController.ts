@@ -25,6 +25,7 @@ export default class FriendLoansController {
 
     try {
       const loan = await FriendLoan.create(body)
+      response.status(201)
 
       return {
         message: 'Conta criada com sucesso',
@@ -43,7 +44,49 @@ export default class FriendLoansController {
         data: loan,
       }
     } catch (err) {
-      return response.badRequest({ message: 'Não foi possivel carregar a conta.' })
+      return response.notFound({ message: 'Não foi possivel encontrar a conta.' })
+    }
+  }
+
+  public async destroy({ params, response }: HttpContextContract) {
+    try {
+      const loan = await FriendLoan.findOrFail(params.id)
+      await loan.delete()
+
+      response.status(202)
+
+      return {
+        message: 'Apagado com sucesso',
+        data: loan,
+      }
+    } catch (err) {
+      return response.notFound({ message: 'Não foi possivel encontrar a conta.' })
+    }
+  }
+
+  public async update({ params, response, request }: HttpContextContract) {
+    const body = request.body()
+
+    if (Object.keys(body).length === 0)
+      return response.badRequest({ message: 'Nada para atualizar' })
+
+    try {
+      const loan = await FriendLoan.findOrFail(params.id)
+
+      if (body.description) loan.description = body.description
+      if (body.date) loan.date = body.date
+      if (body.value) loan.value = body.value
+      if (body.beReturned) loan.beReturned = body.beReturned
+      if (body.returnedDay) loan.returnedDay = body.returnedDay
+      response.status(200)
+      loan.save()
+
+      return {
+        message: 'Atualizado com sucesso',
+        data: loan,
+      }
+    } catch (err) {
+      return response.badRequest(err)
     }
   }
 }
