@@ -13,7 +13,7 @@ export default class extends BaseSchema {
       table.date('recived_date')
       table.boolean('fixed_income').notNullable()
       table.boolean('repeat').notNullable()
-      table.integer('times_repeat')
+      table.decimal('times_repeat')
 
       table
         .string('user_id')
