@@ -1,7 +1,17 @@
 import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
-import { BaseModel, beforeCreate, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  beforeCreate,
+  column,
+  HasMany,
+  hasMany,
+  ManyToMany,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import Revenue from './Revenue'
+import Expense from './Expense'
 
 export default class Category extends BaseModel {
   @column({ isPrimary: true })
@@ -41,4 +51,10 @@ export default class Category extends BaseModel {
 
   @manyToMany(() => User, { pivotTable: 'users_categories' })
   public users: ManyToMany<typeof User>
+
+  @hasMany(() => Revenue)
+  public revenues: HasMany<typeof Revenue>
+
+  @hasMany(() => Expense)
+  public expenses: HasMany<typeof Expense>
 }
